@@ -1,13 +1,14 @@
 # 📌 Pinterest Data Pipeline
 
 ## Overview
-This project processes Pinterest data by ingesting, transforming, and analyzing it using **Kafka, MySQL, Databricks, and Apache Airflow**. Initially, the data was retrieved from AWS S3, but due to access restrictions, it was later moved to a **local MySQL database** (from Milestone 7 onwards).
+This project processes Pinterest data by ingesting, transforming, and analyzing it using **Kafka, MySQL, Databricks, and AWS MWAA and AWS Kinesis**. Initially, the data was retrieved from AWS S3, and sent to kafka topics via an API gatway only then to be finally loaded in to databricks (Milestone 1-6). Due to access restrictions,intial data was later moved to a **local MySQL database** and instead of using kafka data was imported directly to databricks workspace. Pinterest Data.ipynb note book was split in to several jobs which where triggered in order governed by **Apache Airflow** dag file (Milestone 7). **AWS MWAA** and **AWS Kinesis** were not used (what would have been milestone 7-8).
 
 ## Project Workflow
-1. **Data Ingestion:** Data is sourced from AWS S3 (Milestone 1-6) or a local SQL database (Milestone 7).
-2. **Streaming with Kafka:** Data is streamed via Kafka topics.
+1. **Data Ingestion:** Data is sourced from AWS S3 (Milestone 1-6) to databricks or a local SQL database (Milestone 7).
+2. **Streaming with Kafka:** Data is streamed via Kafka topics (Milestone 1-6).
 3. **Data Transformation:** Transformation using Databricks notebooks.
-4. **Orchestration:** Airflow DAG schedules and monitors the pipeline.
+4. **Data Anayltics:** Obtaining useful insights from the data. 
+5. **Orchestration:** User runs the files manually for Milestones 1-6 and for milestone 7 Airflow DAG schedules and monitors the pipeline.
 
 ---
 
@@ -126,18 +127,19 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 The Airflow DAG (`databricks_run_pinterest_analytics_pipeline_dag`) runs **Databricks jobs** in sequence.
 
 ### **Execution Order**
+![image](https://github.com/user-attachments/assets/787abd29-b6df-42a0-84a5-27a53081bb77)
 1. **Trigger Jobs**:
-   - `trigger_load_transform_user_data_job`
+   -  `trigger_load_transform_geo_data_job`
    - `trigger_load_transform_pinterest_data_job`
-   - `trigger_load_transform_geo_data_job`
+   - `trigger_load_transform_user_data_job`
 2. **Wait Jobs**:
-   - `wait_for_load_transform_user_data_job`
-   - `wait_for_load_transform_pinterest_data_job`
    - `wait_for_load_transform_geo_data_job`
+   - `wait_for_load_transform_pinterest_data_job`
+   - `wait_for_load_transform_user_data_job`
 3. **Final Job**:
    - `trigger_load_transform_analytics_job`
   
-![image](https://github.com/user-attachments/assets/787abd29-b6df-42a0-84a5-27a53081bb77)
+
 
 ---
 
@@ -167,9 +169,10 @@ database_login:
 ---
 
 # 📌 Project Summary
-- **Milestones 1-6:** Data was **retrieved from AWS S3** and sent to **Kafka topics** in AWS.
+- **Milestones 1-6:** Data was **retrieved from AWS S3** and sent to **Kafka topics**.Data was then retrived in databrick in python dataframe in the Pinterest Data.ipynb file. 
 - **Milestone 7:** AWS server **was not available**, so data was **imported into a local SQL repository**.
-- **Data transformation** was handled using **Databricks notebooks**.
-- **Apache Airflow** was used for **workflow orchestration**.
+- **Data transformation** was handled using **Databricks notebooks**: Data.ipynb for Milestone 1-6 and Pipeline-Tasks folder notebooks for Milestone 7.
+- **Data Anayltics:** was also handled using **Databricks notebooks**: Data.ipynb for Milestone 1-6 and Load_All_Data_Perform_Analytics.ipynb for Milestone 7. 
+- **Apache Airflow** was used for **workflow orchestration** for Milestone 7.
 
 ---
