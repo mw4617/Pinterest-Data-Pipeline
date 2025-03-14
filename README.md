@@ -57,11 +57,12 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 - Modify `user_posting_emulation.py` to send data to Kafka.
 
 ### Execution Steps
-1. **Run the Kafka producer:**
+1. **Create db_creds.yaml in safe folder where you saved user_posting_emulation.py, make sure all the credentials have been saved.**
+2. **Run the Kafka producer:**
    ```bash
    python user_posting_emulation.py
    ```
-2. **Verify data arrival in Kafka:**
+3. **Verify data arrival in Kafka:**
    ```bash
    bin/kafka-console-consumer.sh --topic pin --from-beginning --bootstrap-server localhost:9092
    ```
@@ -83,12 +84,16 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 ### Execution Steps
 1. **Import data into MySQL database**.
 2. **Import user, geo, and Pinterest data into Databricks Catalog**.
-3. **Run the Airflow DAG** to execute Databricks jobs in sequence:
+3. **Download Pipeline-Tasks** folder to databricks.
+4. In airflow folder create dags folder.
+5. **Download dag_run_databricks_pipepline.py in to the airflow folder.**
+6. Get the **databricks instance -environment url ** and **databrics access token** and store those in **config.yaml** file in airflow dags folder. 
+7. **Run the Airflow DAG** to execute Databricks jobs in sequence:
    ```bash
    airflow scheduler &
    airflow webserver --port 8080
    ```
-4. **Access Airflow Web UI**: Open [http://localhost:8080](http://localhost:8080) in a web browser.
+8. **Access Airflow Web UI**: Open [http://localhost:8080](http://localhost:8080) in a web browser.
 
 ---
 
