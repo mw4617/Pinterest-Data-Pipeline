@@ -173,6 +173,27 @@ database_login:
 
 ---
 
+# **📌 Milestone 5-6 & 7 Pipeline Tasks 1-11**
+
+### **Task Breakdown**
+| Task | Description |
+|------|------------|
+| **Task 1** | **Pinterest Data Cleaning:** Handle missing values and fix formatting issues. |
+| **Task 2** | **User Geo Location Data Processing:** Extract `latitude` and `longitude` into a single `coordinates` column. |
+| **Task 3** | **User Data Processing:** Merge `first_name` and `last_name` into `user_name`. |
+| **Task 4** | **Anlytics:** Popular Category by Country. |
+| **Task 5** | **Anlytics:** Popular Category by Year. |
+| **Task 6** | **Anlytics:** Most Followed Users per Country. |
+| **Task 7** | **Anlytics:** Age Group Analysis. |
+| **Task 8** | **Anlytics:** Median Followers by Age Group. |
+| **Task 9** | **Anlytics:** User Growth Over Time. |
+| **Task 10** | **Anlytics:** Median Followers per Year. |
+| **Task 11** | **Anlytics:** Age Group & Followers Trends. |
+
+
+
+---
+
 # 📌 Project Summary
 - **Milestones 1-6:** Data was **retrieved from AWS S3** and sent to **Kafka topics**.Data was then retrived in databrick in python dataframe in the Pinterest Data.ipynb file. 
 - **Milestone 7:** AWS server **was not available**, so data was **imported into a local SQL repository**.
