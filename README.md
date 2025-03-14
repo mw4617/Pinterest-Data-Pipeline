@@ -132,7 +132,7 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 The Airflow DAG (`databricks_run_pinterest_analytics_pipeline_dag`) runs **Databricks jobs** in sequence.
 
 ### **Execution Order**
-Note: Wait for wait_for_load_transform_{}_data_job taks where needed as the final task could not be triggered before the intial tasks where completed.
+Note: Wait for wait_for_load_transform_{}_data_job tasks were needed as the final task could not be triggered before the intial tasks where completed.
 ![image](https://github.com/user-attachments/assets/787abd29-b6df-42a0-84a5-27a53081bb77)
 1. **Trigger Jobs**:
    -  `trigger_load_transform_geo_data_job`
