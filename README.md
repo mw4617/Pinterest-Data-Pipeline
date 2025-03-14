@@ -26,8 +26,6 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 1. Navigate to **AWS Console** and **download the dataset**.
 2. Import the dataset into **S3 storage**.
 
-![Milestone 2](file-YLSmtrbxhYGdX8RTREyTj4)
-
 ---
 
 # 📌 Milestone 3: EC2 Kafka Setup
@@ -51,8 +49,6 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
    bin/kafka-topics.sh --create --topic user --bootstrap-server localhost:9092
    ```
 
-![Milestone 3](file-PyhBW9hWubmakEmQCmEWgc)
-
 ---
 
 # 📌 Milestone 4: API Gateway for Kafka
@@ -69,8 +65,6 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
    bin/kafka-console-consumer.sh --topic pin --from-beginning --bootstrap-server localhost:9092
    ```
 
-![Milestone 4](file-KgnbUWwyaUB3w3wTXMqqXP)
-
 ---
 
 # 📌 Milestone 5-6: Load & Transform Data in Databricks
@@ -78,8 +72,6 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 
 ### Execution Steps
 1. Run **Pinterest Data.ipynb** in **Databricks**.
-
-![Milestone 5-6](file-4jVJpaDPUyXwDxCGLujhQb)
 
 ---
 
@@ -96,8 +88,6 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
    airflow webserver --port 8080
    ```
 4. **Access Airflow Web UI**: Open [http://localhost:8080](http://localhost:8080) in a web browser.
-
-![Milestone 7](file-6AqZxwFxLKS2zK5fSSsA1y)
 
 ---
 
@@ -146,8 +136,8 @@ The Airflow DAG (`databricks_run_pinterest_analytics_pipeline_dag`) runs **Datab
    - `wait_for_load_transform_geo_data_job`
 3. **Final Job**:
    - `trigger_load_transform_analytics_job`
-
-![Airflow DAG](file-2mFMsZJVZuCWPeijAMyNy9)
+  
+![image](https://github.com/user-attachments/assets/787abd29-b6df-42a0-84a5-27a53081bb77)
 
 ---
 
@@ -173,8 +163,6 @@ database_login:
   database: "pinterest_db"
   port: 3306
 ```
-
-![Configuration Files](file-HghdLPXA66SUsbwBjjhbCN)
 
 ---
 
