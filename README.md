@@ -85,9 +85,9 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 1. **Import data into MySQL database**.
 2. **Import user, geo, and Pinterest data into Databricks Catalog**.
 3. **Download Pipeline-Tasks** folder to databricks.
-4. In airflow folder create dags folder.
+4. **In airflow folder create dags folder.**
 5. **Download dag_run_databricks_pipepline.py in to the airflow folder.**
-6. Get the **databricks instance -environment url ** and **databrics access token** and store those in **config.yaml** file in airflow dags folder. 
+6. Get the **databricks instance -environment url** and **databrics access token** and store those in **config.yaml** file in airflow dags folder. 
 7. **Run the Airflow DAG** to execute Databricks jobs in sequence:
    ```bash
    airflow scheduler &
