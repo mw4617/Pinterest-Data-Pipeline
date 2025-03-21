@@ -1,15 +1,14 @@
-# Required Libraries
-import requests  # For making HTTP requests to Kafka REST Proxy
-from time import sleep  # For implementing delays (e.g., retry backoff)
-import random  # For generating random delays and selecting random rows
-from multiprocessing import Process  # For potential parallel execution (not currently used)
-import boto3  # AWS SDK for Python (not used in this script but imported)
-import json  # For handling JSON serialization
-import yaml  # For loading database credentials from a YAML file
-import sqlalchemy  # For handling database connections via SQLAlchemy
-from sqlalchemy import text, exc  # For executing raw SQL queries and handling exceptions
-import datetime  # For working with timestamps
-import time  # For general time-related operations
+import requests 
+from time import sleep  
+import random  
+from multiprocessing import Process  
+import boto3  
+import json  
+import yaml  
+import sqlalchemy  
+from sqlalchemy import text, exc  
+import datetime 
+import time  
 
 # -------------------- DATABASE CONNECTOR --------------------
 class AWSDBConnector:
@@ -30,7 +29,7 @@ class AWSDBConnector:
             with open(db_creds_path, 'r') as file:
                 credentials = yaml.safe_load(file)  # Load credentials from YAML file
         except FileNotFoundError:
-            raise RuntimeError("Database credentials file not found!")
+            raise FileNotFoundError("Database credentials file not found!") from e
 
         # Extract credentials
         db_creds = credentials.get("database_login", {})
@@ -96,20 +95,20 @@ def send_to_kafka(topic_name, record, max_retries=5, timeout=10):
             response = requests.post(invoke_url, headers=HEADERS, data=serialized_payload, timeout=timeout)
             
             if response.status_code == 200:
-                print(f"✅ Record sent to {topic_name} (Status Code: {response.status_code})")
+                print(f"Record sent to {topic_name} (Status Code: {response.status_code})")
                 return response.status_code
             else:
-                print(f"❌ Failed to send record to {topic_name}. Status: {response.status_code}, Response: {response.text}")
+                print(f"Failed to send record to {topic_name}. Status: {response.status_code}, Response: {response.text}")
 
         except requests.exceptions.RequestException as e:
-            print(f"⚠️ Network error (attempt {attempt+1}/{max_retries}): {e}")
+            print(f"Network error (attempt {attempt+1}/{max_retries}): {e}")
 
         # Exponential backoff with jitter
         sleep_time = min(2 ** attempt + random.uniform(0, 1), timeout)
-        print(f"⏳ Retrying in {sleep_time:.2f} seconds...")
+        print(f"Retrying in {sleep_time:.2f} seconds...")
         sleep(sleep_time)
 
-    print(f"❌ Max retries reached for {topic_name}. Skipping record.")
+    print(f"Max retries reached for {topic_name}. Skipping record.")
     return None
 
 # -------------------- FETCH RANDOM RECORDS --------------------
@@ -137,7 +136,7 @@ def fetch_random_row(connection, table_name, total_rows):
         row = result.fetchone()
         return dict(row._mapping) if row else None
     except exc.SQLAlchemyError as e:
-        print(f"⚠️ Database error fetching random row from {table_name}: {e}")
+        print(f"Database error fetching random row from {table_name}: {e}")
         return None
 
 
@@ -159,7 +158,7 @@ def get_total_rows(connection, table_name):
         result = connection.execute(text("SELECT COUNT(*) FROM {}".format(table_name)))
         return result.scalar() or 0  # Return row count or 0 if no records exist
     except exc.SQLAlchemyError as e:
-        print(f"⚠️ Error fetching total row count for {table_name}: {e}")
+        print(f"Error fetching total row count for {table_name}: {e}")
         return 0
 
 # -------------------- MAIN LOOP FUNCTION --------------------
@@ -184,7 +183,7 @@ def run_post_data_loop():
                     if result:
                         send_to_kafka(f"b194464884bf.{topic}", result)
                         sent_counts[topic] += 1
-                        print(f"📊 Total {topic} records sent: {sent_counts[topic]}")
+                        print(f"Total {topic} records sent: {sent_counts[topic]}")
             sleep(random.uniform(0.5, 1.5))  # Add random delay between loops
 
 # -------------------- SCRIPT EXECUTION --------------------
@@ -194,6 +193,6 @@ if __name__ == "__main__":
     """
     try:
         run_post_data_loop()
-        print('✅ Process Complete: 2000 random records sent to each Kafka topic!')
+        print('Process Complete: 2000 random records sent to each Kafka topic!')
     except Exception as e:
-        print(f"❌ Critical error occurred: {e}")
+        print(f"Critical error occurred: {e}")
