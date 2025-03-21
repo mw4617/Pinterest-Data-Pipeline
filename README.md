@@ -1,4 +1,4 @@
-# 📌 Pinterest Data Pipeline
+#  Pinterest Data Pipeline
 
 ## Overview
 This project processes Pinterest data by ingesting, transforming, and analyzing it using **Kafka, MySQL, Databricks, and AWS MWAA and AWS Kinesis**. Initially, the data was retrieved from AWS S3, and sent to kafka topics via an API gatway only then to be finally loaded in to databricks (Milestone 1-6). Due to access restrictions,intial data was later moved to a **local MySQL database** and instead of using kafka data was imported directly to databricks workspace. Pinterest Data.ipynb note book was split in to several jobs which where triggered in order governed by **Apache Airflow** dag file (Milestone 7). **AWS MWAA** and **AWS Kinesis** were not used (what would have been milestone 7-8).
@@ -12,14 +12,14 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 
 ---
 
-# 📌 Milestone 1: Environment Setup
+#  Milestone 1: Environment Setup
 - Install Python and required libraries.
 - Install MySQL for local database (for Milestone 7 onwards).
 - Set up Databricks and Kafka.
 
 ---
 
-# 📌 Milestone 2: Data Download & AWS Login
+#  Milestone 2: Data Download & AWS Login
 - **Download Pinterest dataset** from **AWS S3**.
 - **Log in** to AWS using IAM credentials.
 
@@ -29,7 +29,7 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 
 ---
 
-# 📌 Milestone 3: EC2 Kafka Setup
+#  Milestone 3: EC2 Kafka Setup
 - **Set up an EC2 instance**.
 - **Install Apache Kafka** and create topics.
 
@@ -52,7 +52,7 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 
 ---
 
-# 📌 Milestone 4: API Gateway for Kafka
+#  Milestone 4: API Gateway for Kafka
 - Implement **Kafka REST API**.
 - Modify `user_posting_emulation.py` to send data to Kafka.
 
@@ -69,7 +69,7 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 
 ---
 
-# 📌 Milestone 5-6: Load & Transform Data in Databricks
+#  Milestone 5-6: Load & Transform Data in Databricks
 - Use `Pinterest Data.ipynb` for data loading and analytics.
 
 ### Execution Steps
@@ -77,7 +77,7 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 
 ---
 
-# 📌 Milestone 7: Switch to Local SQL Database
+#  Milestone 7: Switch to Local SQL Database
 - **AWS Access Revoked**, switched data source to **local MySQL database**.
 - **Database imported** from **AI Core**.
 
@@ -97,7 +97,7 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 
 ---
 
-# 📌 Apache Airflow Setup & Execution
+#  Apache Airflow Setup & Execution
 
 ## Installation
 1. **Install Airflow**:
@@ -128,7 +128,7 @@ This project processes Pinterest data by ingesting, transforming, and analyzing 
 
 ---
 
-# 📌 Airflow DAG Workflow
+#  Airflow DAG Workflow
 The Airflow DAG (`databricks_run_pinterest_analytics_pipeline_dag`) runs **Databricks jobs** in sequence.
 
 ### **Execution Order**
@@ -149,7 +149,7 @@ Note: Wait for wait_for_load_transform_{}_data_job tasks were needed as the fina
 
 ---
 
-# 📌 Configuration Files
+#  Configuration Files
 
 ### `config.yaml` (Required for Airflow DAG)
 This file contains **Databricks instance credentials**.
@@ -174,7 +174,9 @@ database_login:
 
 ---
 
-# **📌 Milestone 5-6 & 7 Pipeline Tasks 1-11**
+# ** Milestone 5-6 & 7 Pipeline Tasks 1-11**
+
+Note: For results please the files in the Pipeline-Tasks folder.
 
 ### **Task Breakdown**
 | Task | Description |
@@ -195,7 +197,7 @@ database_login:
 
 ---
 
-# 📌 Project Summary
+#  Project Summary
 - **Milestones 1-6:** Data was **retrieved from AWS S3** and sent to **Kafka topics**.Data was then retrived in databrick in python dataframe in the Pinterest Data.ipynb file. 
 - **Milestone 7:** AWS server **was not available**, so data was **imported into a local SQL repository**.
 - **Data transformation** was handled using **Databricks notebooks**: Data.ipynb for Milestone 1-6 and Pipeline-Tasks folder notebooks for Milestone 7.
